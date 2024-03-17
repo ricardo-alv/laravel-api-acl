@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Repositories\UserRepository;
+use Symfony\Component\HttpFoundation\Response;
+
+class ACLMiddleware
+{
+    public function __construct(private UserRepository $userRepository)
+    {
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        $routeName = Route::currentRouteName();
+        if (!$this->userRepository->hasPermissions($request->user(), $routeName))
+            return response()->json(['message' => 'User Forbidden'], Response::HTTP_FORBIDDEN);
+
+        return $next($request);
+    }
+}

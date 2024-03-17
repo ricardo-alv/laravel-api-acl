@@ -14,10 +14,12 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        //whenLoaded quando recarregar as permissions
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions'))
         ];
     }
 }
