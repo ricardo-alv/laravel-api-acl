@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\StoreUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
@@ -12,7 +11,11 @@ use App\DTO\Users\{
     CreateUserDTO,
     EditUserDTO
 };
-use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\{
+    StoreUserRequest,
+    UpdateUserRequest
+};
+
 
 class UserController extends Controller
 {
