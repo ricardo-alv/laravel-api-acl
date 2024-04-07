@@ -33,9 +33,9 @@ class UserRepository
         return $this->user->create($data);
     }
 
-    public function findById(string $id): ?User
+    public function findById(string $id, array $relations = []): ?User
     {
-        return $this->user->find($id);
+        return $this->user->with($relations)->find($id);
     }
 
     public function findByEmail(string $email): ?User

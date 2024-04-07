@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\SyncPermissionsOfUser;
 use App\Http\Resources\PermissionResource;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Response;
@@ -14,7 +15,7 @@ class PermissionUserController extends Controller
     {
     }
 
-    public function syncPermissionOfUser(string $id, Request $request)
+    public function syncPermissionOfUser(string $id, SyncPermissionsOfUser $request)
     {
         if (!$this->userRepository->syncPermissions($id, $request->permissions))
             return response()->json(['message' => 'User not found!'], Response::HTTP_NOT_FOUND);

@@ -54,7 +54,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if (!$user =  $this->userRepository->findById($id))
+        if (!$user =  $this->userRepository->findById($id,['permissions']))
             return response()->json(['message' => 'User not found!'], Response::HTTP_NOT_FOUND);
 
         return new UserResource($user);
